@@ -1,0 +1,45 @@
+@import "./src/assets/styles/instance.scss";
+.alert {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include transition(ease-out 20s);
+    &__content {
+        background-color: $c2;
+        min-width: 100%;
+        @include border-radius(0 0 8px 8px);
+        @include box-shadow(0px 1px 5px 0px rgba(0,0,0,0.26));
+        min-height: 40px;
+        color: $c6;
+        padding: 5px;
+
+        &__title {
+            font-weight: 500;
+            font-size: 18px;
+            padding-left: 15px;
+            margin: 0;
+        }
+        &__description {
+            padding-left: 15px;
+            padding-right: 15px;
+            margin: 0;
+        }
+    }
+    &__success {
+        background-color: $c7;
+    }
+    &__danger {
+        background-color: $c8;
+    }
+    &__alert {
+        background-color: $c9;
+    }
+    @include brp($medium, min) {
+        &__content {
+            min-width: 10%;
+        }
+    }
+}

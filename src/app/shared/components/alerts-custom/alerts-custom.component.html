@@ -1,0 +1,10 @@
+<div class="alert">
+  <div class="alert__content alert__{{ viewAlert?.type }}" *ngIf="viewAlert">
+      <h4 class="alert__content__title">
+          {{ viewAlert?.title }}
+      </h4>
+      <p class="alert__content__description">
+          {{ viewAlert?.message }}
+      </p>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<app-templates>
+  <div class="login" content>
+      <div class="login__photo">
+          <img src="https://bitsdrupal.bitsamericas.co/sites/default/files/cards/Logocolor_2.png" alt="">
+      </div>
+      <h3 class="login__title">
+          Iniciar Session
+      </h3>
+      <form [formGroup]="formGroup" *ngIf="formGroup" class="login__form">
+          <mat-form-field>
+              <mat-label>Correo</mat-label>
+              <input matInput formControlName="email">
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Contraseña</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+          </mat-form-field>
+          <!-- <div class="login__form__slide">
+              <mat-slide-toggle [labelPosition]="'before'" formControlName="iscompany">Empresa</mat-slide-toggle>
+          </div> -->
+          <div class="login__form__buttons">
+              <button mat-button class="btn_login" (click)="clickLogin()">Ingresar</button>
+          </div>
+      </form>
+  </div>
+</app-templates>
