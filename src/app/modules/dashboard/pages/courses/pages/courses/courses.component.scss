@@ -1,0 +1,56 @@
+@import "src/assets/styles/instance";
+.courses{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__content {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    &__course  {
+      display: flex;
+      cursor: pointer;
+      height: 150px;
+      width: 318px;
+      align-items: center;
+      border: 1px solid $c8;
+      border-radius: 4px;
+      background-color: $c7;
+      @include user-select( );
+      .img {
+        @include whs(120px);
+        margin: 10px;
+        // height: 100%;
+        // width: 120px;
+        img {
+          @include wh(100%);
+        }
+      }
+      .content {
+        //padding: 20px;
+        // padding-top: 10px;
+        width: 180px;
+        height: 100%;
+        p {
+          margin: 0px;
+          margin-right: 10px;
+          &.title {
+            color: $c8;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+          }
+          &.description {
+            color: $c3;
+            height: 72px;
+          }
+          &.teacher {
+            text-align: end;
+            color: $c9;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

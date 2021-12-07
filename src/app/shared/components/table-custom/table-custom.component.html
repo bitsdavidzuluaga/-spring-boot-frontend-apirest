@@ -1,0 +1,25 @@
+<table *ngIf="table" #rooTable>
+  <thead>
+    <tr>
+      <th *ngFor="let item of table.cols">
+        {{ item.header }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of table.data">
+      <td *ngFor="let cols of table.cols" class="center">
+        <span *ngIf="!isObject( data[cols.field])">
+          {{ data[cols.field] }}
+        </span>
+        <div *ngIf="isObject( data[cols.field])" class="object">
+          <div *ngFor="let item of data[cols.field]">
+            <button mat-icon-button *ngIf="item.type === 'button' && !item.label" id="{{ item.id }}">
+              <mat-icon>{{ item.icon }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

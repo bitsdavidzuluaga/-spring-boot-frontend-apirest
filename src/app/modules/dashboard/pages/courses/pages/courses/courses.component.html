@@ -1,0 +1,19 @@
+<div class="courses">
+  <div class="courses__content">
+    <div class="courses__content__course" *ngFor="let course of courses" (click)="viewModal = true">
+      <div class="img">
+        <img src="./../../../../../../../assets/images/spring-boot.png" alt="Spring Boot">
+      </div>
+      <div class="content">
+        <p class="title">{{ course.name }}</p>
+        <p class="description">{{ course.description }}</p>
+        <p class="teacher" *ngIf="course.teacher"> {{ course.teacher.name }} {{ course.teacher.lastname }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modals-custom *ngIf="viewModal" (view)="closeModal($event)">
+  <div class="formulary" content>
+
+  </div>
+</app-modals-custom>

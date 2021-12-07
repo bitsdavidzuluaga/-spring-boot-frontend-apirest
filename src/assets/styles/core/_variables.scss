@@ -1,18 +1,65 @@
 
 
 // colores
-$c1: #12232E;
-$c2: #007CC7;
-$c3: #4DA8DA;
-$c4: #203647;
-$c5: #EEFBFB;
-$c6: #FFFFFF;
-$c7: #0E813C;
-$c8: #E62E1E;
-$c9: #cfcf7c;
+$c0: transparent;
+$c1: #FFFFFF;
+$c2: #000000;
+$c3: #2196f3;
+$c4: #6eb8f5;
+$c5: #9ACEF8;
+$c6: #C3E3FD;
+$c7: #E8F5FF;
+$c8: #004085;
+$c9: #155724;
+$c10:#721c24;
+$c11: #856404;
+$c12: #FFF3CD;
+$c13: #F8D7DA;
+$c14: #CCE5FF;
 
 $small: 0;
 $medium: 640;
 $large: 1024;
 $xlarge: 1200;
 $xxlarge: 1440;
+
+
+
+// Con opacidad
+$r1: rgba($c2, 0.45);
+$r2: rgba($c11, 0.45);
+
+// Colors list
+// $color_breadcrumbs: ($c14, $c17, $c3, $c18, $c19);
+// $color_breadcrumbs_h: ($c13, $c20, $c21, $c23, $c35);
+// $l: length($color_breadcrumbs);
+
+// Fonts
+$f1: "Roboto", "sans-serif"; // Fuente principal
+$f2: "Helvetica", "sans-serif"; // Fuente secundaria
+
+// Ruta de images
+$i1: "../icons/";
+
+// Breakpoints
+$b1: 1920;
+$b2: 1366; // Tamaño diseño desktop
+$b3: 1280;
+$b4: 1024;
+$b5: 980; // BRP para cambio a movil tablet
+$b6: 768;
+$b7: 640;
+$b8: 480; //Tamaño de diseño movil
+$b9: 320;
+
+// Time Animation
+$t1: 200ms;
+$t2: 400ms;
+$t3: 250ms;
+$t4: 500ms;
+$t5: 100ms;
+$t6: 300ms;
+
+//-----------------------------------
+//End Variables
+//-----------------------------------

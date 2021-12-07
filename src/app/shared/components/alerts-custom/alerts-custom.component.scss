@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: $c6;
     @include transition(ease-out 20s);
     &__content {
         background-color: $c2;
@@ -13,7 +14,6 @@
         @include border-radius(0 0 8px 8px);
         @include box-shadow(0px 1px 5px 0px rgba(0,0,0,0.26));
         min-height: 40px;
-        color: $c6;
         padding: 5px;
 
         &__title {
@@ -29,13 +29,16 @@
         }
     }
     &__success {
-        background-color: $c7;
+      color: $c9;
+      background-color: $c14;
     }
     &__danger {
-        background-color: $c8;
+      color: $c10;
+      background-color: $c13;
     }
     &__alert {
-        background-color: $c9;
+        background-color: $c12;
+        color: $c11;
     }
     @include brp($medium, min) {
         &__content {

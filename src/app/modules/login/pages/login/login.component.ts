@@ -13,9 +13,9 @@ import { LoginService } from 'src/app/core/services/login-service/login-service.
 export class LoginComponent implements OnInit {
   public hide = true;
   public formGroup: FormGroup = this.fb.group({
-    email: new FormControl(null, [ Validators.required, Validators.email ]),
+    user: new FormControl(null, [ Validators.required ]),
     password: new FormControl(null, [ Validators.required ])
-  });;
+  });
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -33,22 +33,29 @@ export class LoginComponent implements OnInit {
   public clickLogin() {
     if (this.formGroup?.valid) {
       const login: Login = {
-        email: this.formGroup?.get('email')?.value,
+        user: this.formGroup?.get('user')?.value,
         password: this.formGroup?.get('password')?.value
       };
       console.log('hola');
-      this.loginService.post(`/login`, login).subscribe((login: Login) => {
-        if (login.token) {
-          console.log(login);
-          sessionStorage.setItem('token', login.token);
+      this.loginService.post(`/teacher/auth`, login).subscribe((login: any) => {
+        console.log(login);
+        if (login.body && login.body.token) {
+          const token = login.body.token.split('Bearer ')[1];
+          const id = login.id;
+          const username = login.body.username;
+          sessionStorage.setItem('token', token);
+          sessionStorage.setItem('id', id);
+          sessionStorage.setItem('username', username);
           // localStorage.setItem('user', JSON.stringify(login.user));
           this.router.navigate(['/dashboard']);
+        } else {
+          this.alertCustom.AlertCustom({ title: 'Alerta', message: login.message, type: 'alert' });
         }
       }, error => {
-        this.alertCustom.AlertCustom({ title: 'Alerta', message: error.error, type: 'alert' });
+        this.alertCustom.AlertCustom({ title: 'Alerta', message: error.error, type: 'danger' });
       });
     } else {
-      this.alertCustom.AlertCustom({ title: 'Alerta', message: 'Por favor diligencia todos los datos correctamente', type: 'alert' });
+      this.alertCustom.AlertCustom({ title: 'Alerta', message: 'Por favor diligencia todos los datos correctamente', type: 'danger' });
     }
   }
 

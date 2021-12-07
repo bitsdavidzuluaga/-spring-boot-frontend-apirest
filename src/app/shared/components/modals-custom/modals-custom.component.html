@@ -1,1 +1,5 @@
-<p>modals-custom works!</p>
+<div class="modal" id="modal" *ngIf="viewModal">
+  <div class="modal__content" id="content">
+    <ng-content select="[content]"></ng-content>
+  </div>
+</div>

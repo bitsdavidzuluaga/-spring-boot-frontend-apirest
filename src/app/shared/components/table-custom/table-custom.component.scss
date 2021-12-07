@@ -1,0 +1,33 @@
+@import "./src/assets/styles/instance.scss";
+table {
+  // border: 1px solid $c2;
+  margin: 20px;
+  @include box-shadow(0 0px 8px 0px);
+  @include border-radius(4px);
+  border-collapse: collapse;
+  th,
+  td {
+    padding: 5px;
+    color: $c2;
+  }
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background-color: $c4;
+      }
+      &:nth-child(even) {
+        background-color: $c5;
+      }
+      td {
+        font-weight: 500;
+        &.center {
+          text-align: center;
+        }
+        .object {
+          display: flex;
+        }
+      }
+    }
+
+  }
+}

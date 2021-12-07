@@ -8,8 +8,8 @@
       </h3>
       <form [formGroup]="formGroup" *ngIf="formGroup" class="login__form">
           <mat-form-field>
-              <mat-label>Correo</mat-label>
-              <input matInput formControlName="email">
+              <mat-label>Usuario</mat-label>
+              <input matInput formControlName="user">
           </mat-form-field>
           <mat-form-field>
               <mat-label>Contraseña</mat-label>
@@ -18,9 +18,6 @@
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
           </mat-form-field>
-          <!-- <div class="login__form__slide">
-              <mat-slide-toggle [labelPosition]="'before'" formControlName="iscompany">Empresa</mat-slide-toggle>
-          </div> -->
           <div class="login__form__buttons">
               <button mat-button class="btn_login" (click)="clickLogin()">Ingresar</button>
           </div>

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-
-
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -18,16 +16,28 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AlertsCustomComponent } from './components/alerts-custom/alerts-custom.component';
 import { ModalsCustomComponent } from './components/modals-custom/modals-custom.component';
-
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { TableCustomComponent } from './components/table-custom/table-custom.component';
+// import { CoreModule } from '../core/core.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-
-  
     AlertsCustomComponent,
-        ModalsCustomComponent
+    ModalsCustomComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    TableCustomComponent,
+    NotFoundComponent,
   ],
   imports: [
+    CommonModule,
+    HttpClientModule,
+    // CoreModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -40,9 +50,15 @@ import { ModalsCustomComponent } from './components/modals-custom/modals-custom.
     MatListModule,
     MatButtonToggleModule,
     RouterModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
   exports: [
+    LayoutComponent,
+    AlertsCustomComponent,
+    TableCustomComponent,
+    ModalsCustomComponent,
+    NotFoundComponent,
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -52,6 +68,7 @@ import { ModalsCustomComponent } from './components/modals-custom/modals-custom.
     MatBadgeModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
-  ]
+    // CoreModule
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

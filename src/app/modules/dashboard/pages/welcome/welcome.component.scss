@@ -1,0 +1,14 @@
+@import "src/assets/styles/instance";
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include whs(100%);
+  position: absolute;
+  p {
+    font-size: 26px;
+    span {
+      color: $c8;
+    }
+  }
+}
