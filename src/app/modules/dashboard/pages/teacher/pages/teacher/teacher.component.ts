@@ -63,6 +63,19 @@ export class TeacherComponent implements OnInit {
         const d: any = Object.assign({}, x);
         const actions: MenuItem[] = [
           {
+            id: 'edit_' + index,
+            icon: 'edit',
+            type: 'button',
+            events: [
+              {
+                event: 'click',
+                command: () => {
+                  console.log('edit teacher');
+                }
+              }
+            ]
+          },
+          {
             id: 'delete_' + index,
             icon: 'delete',
             type: 'button',
@@ -75,19 +88,6 @@ export class TeacherComponent implements OnInit {
               }
             ]
           },
-          {
-            id: 'edit_' + index,
-            icon: 'edit',
-            type: 'button',
-            events: [
-              {
-                event: 'click',
-                command: () => {
-                  console.log('edit teacher');
-                }
-              }
-            ]
-          }
         ];
         d['actions'] = actions;
         this.table.data.push(d);

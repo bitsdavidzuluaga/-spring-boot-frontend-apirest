@@ -1,14 +1,14 @@
-<table *ngIf="table" #rooTable>
+<table #rootTable>
   <thead>
     <tr>
-      <th *ngFor="let item of table.cols">
+      <th *ngFor="let item of table?.cols">
         {{ item.header }}
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of table.data">
-      <td *ngFor="let cols of table.cols" class="center">
+    <tr *ngFor="let data of table?.data">
+      <td *ngFor="let cols of table?.cols" class="center">
         <span *ngIf="!isObject( data[cols.field])">
           {{ data[cols.field] }}
         </span>

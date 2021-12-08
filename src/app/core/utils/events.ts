@@ -3,9 +3,8 @@ import { MenuItem } from '../models/menu-item/menu-item';
 
 /**
  * Clase para los eventos requeridos en los formularios y los menus
-*/
+ */
 export abstract class EventForms {
-
   /** Referencia al servicio de render de angular */
   private renderer: Renderer2;
 
@@ -27,7 +26,7 @@ export abstract class EventForms {
     items.forEach((item: any) => {
       cont = 0;
       items.forEach((c: any) => {
-        if ((c.id === item.id)) {
+        if (c.id === item.id) {
           cont++;
         }
       });
@@ -42,7 +41,7 @@ export abstract class EventForms {
   }
 
   /**
-    * Metodo creado para añadir eventos tanto para los formularios como para los menus.
+   * Metodo creado para añadir eventos tanto para los formularios como para los menus.
    * @param params  Array de items para los eventos.
    * @param rootElement  id del los elementos a los cuales se van a agregar los eventos.
    * @param isForm Si el elemento pertenece o no a los formularios.
@@ -50,40 +49,31 @@ export abstract class EventForms {
    * @example
    * this.events(this.menus, this.rootForm, true);
    */
-  public events(params: any[], rootElement: any, isForm: boolean, menuParams?: any) {
+  public events(params: any[], rootElement: any) {
     setTimeout(() => {
       if (params) {
-        if (menuParams === undefined) {
-          params.forEach((i: any) => {
-            console.log(i);
-            this.addEvents(i, rootElement, isForm);
-            if (i.items) {
-              this.events(i.items, rootElement, isForm);
-            }
-          });
-        } else {
-          this.addEvents(menuParams, rootElement, isForm);
-          if (menuParams.items) {
-            this.events(menuParams.items, rootElement, isForm);
+        params.forEach((i: any) => {
+          this.addEvents(i, rootElement);
+          if (i.items) {
+            this.events(i.items, rootElement);
           }
-        }
+        });
       }
-    }, 10);
+    }, 0);
   }
 
   /**
-    * Metodo creado para añadir los eventos.
+   * Metodo creado para añadir los eventos.
    * @param rootElement  id del los elementos a los cuales se van a agregar los eventos.
    * @param isForm Si el elemento pertenece o no a los formularios.
    * @param item parametro para agregar evento
    * @example
    * this.addEvents(menuParams, rootElement, isForm);
    */
-  private addEvents(item: MenuItem, rootElement: any, isForm: boolean) {
+  private addEvents(item: MenuItem, rootElement: any) {
     if (item.events) {
-      item.events.forEach(e => {
-        const nativeE = this.getElementById(rootElement, item.id, isForm);
-        console.log(e, nativeE);
+      item.events.forEach((e) => {
+        const nativeE = this.getElementById(rootElement, item.id);
         if (nativeE !== null) {
           this.renderer.listen(nativeE, e.event, e.command);
         }
@@ -92,23 +82,31 @@ export abstract class EventForms {
   }
 
   /**
-    * Metodo creado para añadir eventos tanto para los formularios como para los menus.
+   * Metodo creado para añadir eventos tanto para los formularios como para los menus.
    * @param rootElement  id del los elementos a los cuales se van a agregar los eventos.
-   * @param isForm Si el elemento pertenece o no a los formularios.
    * @param id parametro para agregar evento
    * @example
    * this.getElementById(rootElement, item.id, isForm);
    */
-  private getElementById(rootElement: any, id: any, isForm: boolean) {
+  private getElementById(rootElement: any, id: string | undefined) {
     let result = null;
     if (rootElement !== void 0 && rootElement.nativeElement !== void 0) {
-      const items = rootElement.nativeElement.children;
-      for (let i = 0; i < items.length; i++) {
-        const item = !isForm ?
-          (items[i].id === '' ? items[i].children[0] : items[i]) :
-          (items[i].children.length > 1 ? items[i].children[1].children[0] : items[i].children[0].children[0]);
-        if (item.id === id) {
-          result = item;
+      result = this.searchElementId(rootElement.nativeElement.children, id);
+    }
+    return result;
+  }
+
+  private searchElementId(children: any, id: string | undefined): any {
+    let result = null;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      if (child.id === id) {
+        result = child;
+        break;
+      } else {
+        result = this.searchElementId(child.children, id);
+        if (result !== null) {
+          break;
         }
       }
     }

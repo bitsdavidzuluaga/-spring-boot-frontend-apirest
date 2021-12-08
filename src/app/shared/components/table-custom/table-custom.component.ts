@@ -24,7 +24,6 @@ export class TableCustomComponent extends EventForms implements OnInit {
     console.log(changes);
     if (changes.table) {
       const table: TableItem = changes.table.currentValue;
-      console.log(table);
     }
   }
 
@@ -35,7 +34,7 @@ export class TableCustomComponent extends EventForms implements OnInit {
     table.cols.forEach((col: any) => {
       table.data.forEach((item: any) => {
         if (this.isObject(item[col.field])) {
-          this.events(item[col.field], this.rootTable, false);
+          this.events(item[col.field], this.rootTable);
         }
       });
     });
