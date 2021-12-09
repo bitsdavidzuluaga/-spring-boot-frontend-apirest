@@ -17,7 +17,7 @@
 <app-modals-custom *ngIf="viewModal" (view)="closeModal($event)">
   <div class="formulary" content>
     <div class="formulary__title">
-      Crear Profesor
+      {{ (formGroup.get('id')?.value ? 'Editar' : 'Crear' ) + ' Profesor'}}
     </div>
     <form class="formulary__content" [formGroup]="formGroup">
       <mat-form-field>
@@ -50,7 +50,8 @@
       </mat-form-field>
     </form>
     <div class="formulary__action">
-      <button mat-button (click)="saveTeacher()" [disabled]="formGroup.invalid">Guardar</button>
+      <button mat-button (click)="saveTeacher()" *ngIf="!formGroup.get('id')?.value" [disabled]="formGroup.invalid">Crear</button>
+      <button mat-button (click)="saveTeacher(true)" *ngIf="formGroup.get('id')?.value" [disabled]="formGroup.invalid">Modificar</button>
     </div>
   </div>
 </app-modals-custom>

@@ -9,7 +9,6 @@
     gap: 20px;
     &__course  {
       display: flex;
-      cursor: pointer;
       height: 150px;
       width: 318px;
       align-items: center;
@@ -31,14 +30,19 @@
         // padding-top: 10px;
         width: 180px;
         height: 100%;
+        position: relative;
+        .actions {
+          position: absolute;
+          right: 5px;
+        }
         p {
           margin: 0px;
           margin-right: 10px;
           &.title {
             color: $c8;
             font-size: 18px;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            margin-top: 22px;
+            margin-bottom: 10px;
           }
           &.description {
             color: $c3;

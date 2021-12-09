@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuItem } from 'src/app/core/models/menu-item/menu-item';
 import { TableCols, TableItem } from 'src/app/core/models/table-custom/table-custom';
+import { Teacher } from 'src/app/core/models/teacher/teacher';
+import { AlertsCustomService } from 'src/app/core/services/alerts-custom/alerts-custom.service';
 import { TableCustomService } from 'src/app/core/services/table-custom/table-custom.service';
 import { TeacherService } from 'src/app/core/services/teacher-service/teacher-service.service';
 
@@ -13,6 +15,7 @@ import { TeacherService } from 'src/app/core/services/teacher-service/teacher-se
 export class TeacherComponent implements OnInit {
 
   public formGroup: FormGroup = this.fb.group({
+    id: new FormControl(null),
     name: new FormControl(null,[Validators.required]),
     lastname: new FormControl(null,[Validators.required]),
     identification: new FormControl(null,[Validators.required]),
@@ -55,9 +58,17 @@ export class TeacherComponent implements OnInit {
     ],
     data: []
   }
-  constructor(private fb: FormBuilder, private teacherService: TeacherService, private tableService: TableCustomService) { }
+  constructor(private fb: FormBuilder,
+    private teacherService: TeacherService,
+    private tableService: TableCustomService,
+    private alertCustom: AlertsCustomService) { }
 
   ngOnInit(): void {
+    this.selectTeachers();
+  }
+
+  private selectTeachers() {
+    this.table.data = [];
     this.teacherService.get('/teacher').subscribe((data) => {
       data.body.map((x, index) => {
         const d: any = Object.assign({}, x);
@@ -70,7 +81,7 @@ export class TeacherComponent implements OnInit {
               {
                 event: 'click',
                 command: () => {
-                  console.log('edit teacher');
+                  this.editTeacher(x);
                 }
               }
             ]
@@ -83,7 +94,7 @@ export class TeacherComponent implements OnInit {
               {
                 event: 'click',
                 command: () => {
-                  console.log('delete teacher');
+                  this.deleteTeacher(x.id);
                 }
               }
             ]
@@ -100,9 +111,30 @@ export class TeacherComponent implements OnInit {
     this.tableService.TableTemplate(this.table);
   }
 
-  public saveTeacher(): void {
-    this.teacherService.post('/teacher', this.formGroup.value).subscribe((data: any) => {
-      console.log(data);
+  private editTeacher(teacher: Teacher) {
+    this.formGroup.patchValue({
+      id: teacher.id,
+      name: teacher.name,
+      lastname: teacher.lastname,
+      identification: teacher.identification,
+      mobile: teacher.mobile,
+      email: teacher.email,
+      user: teacher.user,
+      password: teacher.password
+    });
+    this.viewModal = true;
+  }
+
+  public saveTeacher(edit?: boolean): void {
+    const teacher:  Teacher = this.formGroup.value;
+    teacher.password = this.formGroup.get('password')?.value;
+    teacher.user = this.formGroup.get('user')?.value;
+    this.teacherService.post(edit ? '/teacher/' + teacher.id : '/teacher/save', teacher).subscribe((data: any) => {
+      this.selectTeachers();
+      this.alertCustom.AlertCustom({ title: 'success', message: 'Profesor guardado correctamente.', type: 'success' });
+      this.closeModal(false);
+    }, error => {
+      this.alertCustom.AlertCustom({ title: 'Alerta', message: error, type: 'danger' });
     });
   }
 
@@ -115,16 +147,29 @@ export class TeacherComponent implements OnInit {
     if (this.formGroup.get('lastname')?.value) {
       user += this.formGroup.get('lastname')?.value.split(' ')[0];
     }
-    this.formGroup.get('user')?.setValue(user.toLowerCase());
+    this.formGroup.patchValue({
+      user: user.toLowerCase()
+    });
   }
 
   public createPassword(): void {
-    this.formGroup.get('password')?.setValue(this.formGroup.get('identification')?.value);
+
+    this.formGroup.patchValue({
+      password: this.formGroup.get('identification')?.value
+    });
   }
 
   public closeModal(event: boolean) {
     this.viewModal = event;
     this.formGroup.reset();
+  }
+
+  public deleteTeacher(id?: number) {
+    if (id) {
+      this.teacherService.delete('/teacher/' + id).subscribe((data: any) => {
+        console.log(data);
+      });
+    }
   }
 
 }

@@ -42,7 +42,9 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseServices.get('/coursesr').subscribe((data: any) => {
-      console.log(data);
+      if (data?.body) {
+        this.courses = data.body;
+      }
     });
   }
 

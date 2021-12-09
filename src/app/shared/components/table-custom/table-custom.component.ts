@@ -20,12 +20,6 @@ export class TableCustomComponent extends EventForms implements OnInit {
       this.addEvent(this.table);
     });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    if (changes.table) {
-      const table: TableItem = changes.table.currentValue;
-    }
-  }
 
   ngOnInit(): void {
   }
